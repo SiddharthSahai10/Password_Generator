@@ -15,8 +15,8 @@ function App() {
     if(numberAllowed) str+="0123456789"
     if(charAllowed)   str+="!@#$%^&*()~`_-+="
 
-    for (let i = 1; i < length; i++){
-     let cha= Math.floor(Math.random() *  str.length+1)
+    for (let i = 1; i <= length; i++){
+     let cha= Math.floor(Math.random() * str.length)
      pass +=str.charAt(cha)     
     }
 
