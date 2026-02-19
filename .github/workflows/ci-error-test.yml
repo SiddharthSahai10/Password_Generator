@@ -1,0 +1,31 @@
+name: CI Error Injection
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x] # EOL Node version
+
+    steps:
+    - uses: actions/checkout@v1 # Deprecated action
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Dependencies
+      run: npm install
+
+     - name: Run Tests (Indentation Error)
+      run: npm test # Will fail because no test script exists
+      env:
+        SECRET_KEY: ${{ secrets.NON_EXISTENT_SECRET }} # Invalid secret
